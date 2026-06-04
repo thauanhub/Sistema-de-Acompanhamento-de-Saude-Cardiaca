@@ -1,0 +1,7 @@
+# Arquivos temporários e cache (Python)
+__pycache__/
+*.py[cod]
+
+# Variáveis de ambiente (Credenciais de banco de dados, chaves de API)
+.env
+.env.local
