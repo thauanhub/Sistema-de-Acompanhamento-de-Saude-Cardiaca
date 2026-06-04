@@ -1,0 +1,17 @@
+from pydantic import BaseModel
+from typing import Optional
+from datetime import date
+
+class UserSchema(BaseModel):
+    nome: str
+    email: str
+    celular: str
+    senha: str
+    data_nascimento: date
+    sexo: str
+    pais: str
+    ativo: Optional[bool]
+    admin: Optional[bool]
+
+    class Config:
+        from_attributes = True
