@@ -4,9 +4,13 @@ from sqlalchemy.orm import Session
 from datetime import date
 from dependencies import pegar_sessao
 from main import bcrypt_context
-from schemas import UserSchema
+from schemas import UserSchema, LoginSchema
 
 auth_router = APIRouter(prefix="/auth", tags=["auth"])
+
+def create_token(id_user):
+    token = f'sjflsdlfkkd{id_user}'
+    return token
 
 @auth_router.get("/")
 async def auth():
@@ -19,7 +23,7 @@ async def auth():
     return {"message": "Você está na rota de autenticação!"}
 
 @auth_router.post("/register")
-async def register(user_schema: UserSchema, session = Depends(pegar_sessao) ):
+async def register(user_schema: UserSchema, session: Session = Depends(pegar_sessao) ):
     usuario = session.query(User).filter(User.email==user_schema.email).first()
     if usuario:
         raise HTTPException(status_code=422, detail="E-mail já está vinculado a uma conta")
@@ -30,3 +34,15 @@ async def register(user_schema: UserSchema, session = Depends(pegar_sessao) ):
         session.add(new_user)
         session.commit()
         return {"mensagem": f"usuário com email:{user_schema.email} cadastrado com sucesso"}
+    
+@auth_router.post("/login")
+async def login(login_schema: LoginSchema, session: Session = Depends(pegar_sessao)):
+    usuario = session.query(User).filter(User.email==login_schema.email).first()
+    if not usuario:
+        raise HTTPException(status_code=422, detail="E-mail não cadastrado")
+    else:
+        access_token = create_token(usuario.id)
+        return {
+            "access_token": access_token,
+            "token_type": "Bearer"
+        }
