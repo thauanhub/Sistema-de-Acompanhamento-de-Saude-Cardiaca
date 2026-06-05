@@ -12,8 +12,16 @@ def create_token(id_user):
     token = f'sjflsdlfkkd{id_user}'
     return token
 
+def auth(email, senha, session):
+    usuario = session.query(User).filter(User.email==email).first()
+    if not usuario:
+        return False
+    elif not bcrypt_context.verify(senha, usuario.senha):
+        return False
+    return usuario
+
 @auth_router.get("/")
-async def auth():
+async def home():
     """
     Docstring:
     Essa é a rota padrão de autenticação do sistema. 
@@ -37,7 +45,7 @@ async def register(user_schema: UserSchema, session: Session = Depends(pegar_ses
     
 @auth_router.post("/login")
 async def login(login_schema: LoginSchema, session: Session = Depends(pegar_sessao)):
-    usuario = session.query(User).filter(User.email==login_schema.email).first()
+    usuario = auth(login_schema.email, login_schema.senha, session)
     if not usuario:
         raise HTTPException(status_code=422, detail="E-mail não cadastrado")
     else:
