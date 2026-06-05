@@ -6,6 +6,7 @@ from dependencies import pegar_sessao, verificar_token
 from main import bcrypt_context, SECRET_KEY, ALGORITHM, ACCESS_TOKEN_EXPIRE_MINUTES
 from schemas import UserSchema, LoginSchema
 from jose import jwt, JWTError
+from fastapi.security import OAuth2PasswordRequestForm
 
 auth_router = APIRouter(prefix="/auth", tags=["auth"])
 
@@ -60,9 +61,21 @@ async def login(login_schema: LoginSchema, session: Session = Depends(pegar_sess
             "token_type": "Bearer"
         }
     
+@auth_router.post("/login-form")
+async def login_form(dados_formulario: OAuth2PasswordRequestForm = Depends(), session: Session = Depends(pegar_sessao)):
+    user = auth(dados_formulario.username, dados_formulario.password, session)
+    if not user:
+        raise HTTPException(status_code=422, detail="E-mail não cadastrado")
+    else:
+        access_token = create_token(user.id)
+        refresh_token = create_token(user.id, duracao_token=timedelta(days=7))
+        return {
+            "access_token": access_token,
+            "token_type": "Bearer"
+        }
+    
 @auth_router.get("/refresh")
-async def use_refresh_token(token):
-    user = verificar_token(token)
+async def use_refresh_token(user: User = Depends(verificar_token)):
     access_token = create_token(user.id)
     return {
             "access_token": access_token,
