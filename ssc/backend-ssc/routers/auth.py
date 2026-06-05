@@ -2,26 +2,26 @@ from fastapi import APIRouter, Depends, HTTPException
 from models import User, db
 from sqlalchemy.orm import Session
 from datetime import datetime, timedelta, timezone
-from dependencies import pegar_sessao
+from dependencies import pegar_sessao, verificar_token
 from main import bcrypt_context, SECRET_KEY, ALGORITHM, ACCESS_TOKEN_EXPIRE_MINUTES
 from schemas import UserSchema, LoginSchema
 from jose import jwt, JWTError
 
 auth_router = APIRouter(prefix="/auth", tags=["auth"])
 
-def create_token(id_user):
-    data_expiracao = datetime.now(timezone.utc) + timedelta(minutes=ACCESS_TOKEN_EXPIRE_MINUTES)
-    dic_info = {"sub": id_user, "exp": data_expiracao}
+def create_token(id_user, duracao_token=timedelta(minutes=ACCESS_TOKEN_EXPIRE_MINUTES)):
+    data_expiracao = datetime.now(timezone.utc) + duracao_token
+    dic_info = {"sub": str(id_user), "exp": data_expiracao}
     encoded_jwt = jwt.encode(dic_info, SECRET_KEY, ALGORITHM)
     return encoded_jwt
 
 def auth(email, senha, session):
-    usuario = session.query(User).filter(User.email==email).first()
-    if not usuario:
+    user = session.query(User).filter(User.email==email).first()
+    if not user:
         return False
-    elif not bcrypt_context.verify(senha, usuario.senha):
+    elif not bcrypt_context.verify(senha, user.senha):
         return False
-    return usuario
+    return user
 
 @auth_router.get("/")
 async def home():
@@ -35,8 +35,8 @@ async def home():
 
 @auth_router.post("/register")
 async def register(user_schema: UserSchema, session: Session = Depends(pegar_sessao) ):
-    usuario = session.query(User).filter(User.email==user_schema.email).first()
-    if usuario:
+    user = session.query(User).filter(User.email==user_schema.email).first()
+    if user:
         raise HTTPException(status_code=422, detail="E-mail já está vinculado a uma conta")
     else:
         # não existe usuário
@@ -48,12 +48,23 @@ async def register(user_schema: UserSchema, session: Session = Depends(pegar_ses
     
 @auth_router.post("/login")
 async def login(login_schema: LoginSchema, session: Session = Depends(pegar_sessao)):
-    usuario = auth(login_schema.email, login_schema.senha, session)
-    if not usuario:
+    user = auth(login_schema.email, login_schema.senha, session)
+    if not user:
         raise HTTPException(status_code=422, detail="E-mail não cadastrado")
     else:
-        access_token = create_token(usuario.id)
+        access_token = create_token(user.id)
+        refresh_token = create_token(user.id, duracao_token=timedelta(days=7))
         return {
+            "access_token": access_token,
+            "refresh_token": refresh_token,
+            "token_type": "Bearer"
+        }
+    
+@auth_router.get("/refresh")
+async def use_refresh_token(token):
+    user = verificar_token(token)
+    access_token = create_token(user.id)
+    return {
             "access_token": access_token,
             "token_type": "Bearer"
         }
