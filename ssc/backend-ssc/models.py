@@ -1,6 +1,7 @@
 from sqlalchemy import create_engine, Column, Integer, String, Date, Boolean, ForeignKey
 from sqlalchemy.orm import declarative_base
 from sqlalchemy_utils.types import ChoiceType
+from sqlalchemy import Float
 
 # Conexão com o bd
 db = create_engine("sqlite:///database/ssc.db")
@@ -33,3 +34,24 @@ class User(Base):
         self.pais = pais
         self.ativo = ativo
         self.admin = admin
+
+class RegistroSaude(Base):
+    __tablename__ = "registro"
+
+    id = Column("id", Integer, primary_key=True, autoincrement=True)
+    usuario_id = Column("usuario_id", Integer, ForeignKey("users.id"), nullable=False)    
+    pressao_arterial = Column("pressaoArterial", String(20), nullable= False)
+    frequencia_cardiaca = Column("frequencia_cardiaca", Integer, nullable= False)
+    nivel_oxigenacao = Column("nivel_oxigenacao", Integer, nullable=False)
+    data_consulta = Column("data", Date, nullable=False)
+    peso = Column("peso", float, nullable=False)
+    sintomas= Column ("sintomas", String(255), nullable= False)
+
+    def __init__(self, pressao_arterial, frequencia_cardiaca, nivel_oxigenacao, data_consulta, peso, sintomas):
+        self.pressao_arterial = pressao_arterial
+        self.frequencia_cardiaca = frequencia_cardiaca
+        self.nivel_oxigenacao = nivel_oxigenacao
+        self.data_consulta = data_consulta
+        self.peso = peso
+        self.sintomas = sintomas
+        
