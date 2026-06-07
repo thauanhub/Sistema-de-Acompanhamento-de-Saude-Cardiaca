@@ -17,7 +17,8 @@ app = FastAPI()
 
 bcrypt_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 
-from routers import auth, acompanhamento
+from routers import auth, acompanhamento, relatorios
 
 app.include_router(auth.auth_router)
 app.include_router(acompanhamento.acompanhamento_router)
+app.include_router(relatorios.relatorios_router)
