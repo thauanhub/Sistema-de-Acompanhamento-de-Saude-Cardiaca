@@ -55,7 +55,7 @@ async def ultimo_registro(
     ultimo = session.query(RegistroSaude).filter(
         RegistroSaude.usuario_id == usuario_logado.id
     ).order_by(
-        RegistroSaude.data_consulta.desc()
+        RegistroSaude.data.desc()
     ).first()
 
     if not ultimo:
@@ -69,5 +69,5 @@ async def ultimo_registro(
         "nivel_oxigenacao": ultimo.nivel_oxigenacao,
         "peso": ultimo.peso,
         "sintomas": ultimo.sintomas,
-        "data_consulta": ultimo.data_consulta
+        "data": ultimo.data
     }

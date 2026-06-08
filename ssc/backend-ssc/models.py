@@ -47,7 +47,7 @@ class RegistroSaude(Base):
     peso = Column("peso", Float, nullable=False)
     sintomas= Column ("sintomas", String(255), nullable= True)
 
-    # Mudou dentro dos parênteses:
+    
     def __init__(self, usuario_id, pressao_arterial, frequencia_cardiaca, nivel_oxigenacao, data, peso, sintomas=None):
         self.usuario_id = usuario_id
         self.pressao_arterial = pressao_arterial

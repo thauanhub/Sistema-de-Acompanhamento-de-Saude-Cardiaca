@@ -41,6 +41,7 @@ backend-ssc/
 ├── routers/
 │   ├── auth.py
 │   └── acompanhamento.py
+    └── relatorios.py
 │
 ├── dependencies.py
 ├── main.py
@@ -101,6 +102,16 @@ Responsável por:
 * Consulta de histórico do paciente;
 * Gerenciamento dos registros diários.
 
+#### relatorios.py
+
+Responsável por exibir :
+
+* Quantidade total de registros cadastrados;
+* Média da frequência cardíaca;
+* Média do nível de oxigenação sanguínea;
+* Média do peso corporal.
+
+
 ### 🔗 dependencies.py
 
 Agrupa funções reutilizáveis necessárias para as rotas.
@@ -111,6 +122,20 @@ Exemplos:
 * `verificar_token()`
 
 Responsável pelo gerenciamento de sessão e autenticação.
+
+
+### Endpoint /relatorios/ultimo
+
+Retorna o registro de saúde mais recente do usuário autenticado, incluindo:
+
+* Pressão arterial;
+* Frequência cardíaca;
+* Nível de oxigenação;
+* Peso corporal;
+* Sintomas informados;
+* Data do registro.
+
+Esse endpoint é utilizado para exibir rapidamente o estado mais recente do paciente sem a necessidade de consultar todo o histórico de registros.
 
 ### 🔄 alembic/ e alembic.ini
 
