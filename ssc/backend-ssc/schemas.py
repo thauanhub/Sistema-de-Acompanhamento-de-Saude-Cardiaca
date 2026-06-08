@@ -26,10 +26,10 @@ class LoginSchema(BaseModel):
 class RegistroSchema(BaseModel):
     pressao_arterial: str
     frequencia_cardiaca: int
-    nivel_oxigenacao: str
-    data_consulta: date
-    peso: int
-    sintomas: Optional[str] = None 
+    nivel_oxigenacao: int 
+    data: date 
+    peso: float 
+    sintomas: Optional[str] = None
 
     class Config:
         from_attributes = True

@@ -21,7 +21,7 @@ async def registrar_acompanhamento(
         pressao_arterial=registro.pressao_arterial,
         frequencia_cardiaca=registro.frequencia_cardiaca,
         nivel_oxigenacao=registro.nivel_oxigenacao,
-        data=registro.data,
+        data=registro.data, # Atenção aqui!
         peso=registro.peso,
         sintomas=registro.sintomas
     )

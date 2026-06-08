@@ -1,4 +1,4 @@
-from sqlalchemy import create_engine, Column, Integer, String, Date, Boolean, ForeignKey
+from sqlalchemy import create_engine, Column, Integer, String, Date, Boolean, ForeignKey, Float
 from sqlalchemy.orm import declarative_base
 from sqlalchemy_utils.types import ChoiceType
 from sqlalchemy import Float
@@ -43,15 +43,16 @@ class RegistroSaude(Base):
     pressao_arterial = Column("pressaoArterial", String(20), nullable= False)
     frequencia_cardiaca = Column("frequencia_cardiaca", Integer, nullable= False)
     nivel_oxigenacao = Column("nivel_oxigenacao", Integer, nullable=False)
-    data_consulta = Column("data", Date, nullable=False)
-    peso = Column("peso", float, nullable=False)
-    sintomas= Column ("sintomas", String(255), nullable= False)
+    data = Column("data", Date, nullable=False) # Mudou aqui!
+    peso = Column("peso", Float, nullable=False)
+    sintomas= Column ("sintomas", String(255), nullable= True)
 
-    def __init__(self, pressao_arterial, frequencia_cardiaca, nivel_oxigenacao, data_consulta, peso, sintomas):
+    # Mudou dentro dos parênteses:
+    def __init__(self, usuario_id, pressao_arterial, frequencia_cardiaca, nivel_oxigenacao, data, peso, sintomas=None):
+        self.usuario_id = usuario_id
         self.pressao_arterial = pressao_arterial
         self.frequencia_cardiaca = frequencia_cardiaca
         self.nivel_oxigenacao = nivel_oxigenacao
-        self.data_consulta = data_consulta
+        self.data = data # Mudou aqui!
         self.peso = peso
         self.sintomas = sintomas
-        

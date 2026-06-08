@@ -24,7 +24,7 @@ def upgrade() -> None:
     op.create_table('registro',
     sa.Column('id', sa.Integer(), autoincrement=True, nullable=False),
     sa.Column('usuario_id', sa.Integer(), nullable=False),
-    sa.Column('pressaoArterial', sa.String(length=20), nullable=False),
+    sa.Column('pressao_arterial', sa.String(length=20), nullable=False),
     sa.Column('frequencia_cardiaca', sa.Integer(), nullable=False),
     sa.Column('nivel_oxigenacao', sa.Integer(), nullable=False),
     sa.Column('data', sa.Date(), nullable=False),
