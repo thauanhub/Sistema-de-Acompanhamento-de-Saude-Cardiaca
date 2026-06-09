@@ -229,6 +229,68 @@ A documentação é gerada automaticamente pelo Swagger UI através do OpenAPI.
 
 ---
 
+# 🧪 Testes Automatizados
+
+O sistema conta com uma suíte de testes robusta utilizando o framework **Pytest** e a biblioteca **HTTPX**. Os testes foram rigorosamente segregados entre **Unitários** (validação de dados isolados) e **Integração** (testes de endpoints e fluxos completos de negócio), garantindo a confiabilidade e a segurança da API.
+
+#### Estrutura do Diretório de Testes
+```text
+tests/
+│
+├── integration/
+│   ├── test_autenticacao.py       # Registro, login e validações HTTP da camada Auth
+│   ├── test_fluxo_completo.py     # Fluxo ponta a ponta (E2E): cadastro -> login -> consumo de rota privada
+│   └── test_seguranca_rotas.py    # Validação de barreiras de proteção de endpoints privados
+│
+├── unit/
+│   └── test_validacao.py          # Testes isolados dos esquemas do Pydantic (User e Registro)
+│
+└── conftest.py                    # Configuração centralizada do TestClient do FastAPI
+```
+
+## 🛠️ Como Executar a Suíte de Testes
+Com o ambiente virtual (venv) ativado e no diretório raiz do backend (backend-ssc), execute o comando abaixo para rodar todos os testes em modo detalhado (verbose):
+
+```bash
+python -m pytest -v
+```
+
+## 📊 Evidência de Sucesso da Execução
+Todas as regras de validação, fluxos end-to-end e proteções contra acessos não autorizados passaram com sucesso em menos de um segundo:
+
+```text
+(venv) PS C:\Users\gsouz\ArquivosVSCode\Sistema Saúde Cardiaca\Sistema-de-Acompanhamento-de-Saude-Cardiaca\ssc\backend-ssc> python -m pytest -v
+=================================================== test session starts ====================================================
+platform win32 -- Python 3.13.13, pytest-9.0.3, pluggy-1.6.0 -- C:\Users\gsouz\ArquivosVSCode\Sistema Saúde Cardiaca\Sistema-de-Acompanhamento-de-Saude-Cardiaca\ssc\backend-ssc\venv\Scripts\python.exe
+cachedir: .pytest_cache
+rootdir: C:\Users\gsouz\ArquivosVSCode\Sistema Saúde Cardiaca\Sistema-de-Acompanhamento-de-Saude-Cardiaca\ssc\backend-ssc    
+plugins: anyio-4.9.0
+collected 13 items                                                                                                           
+
+tests/integration/test_autenticacao.py::test_rota_auth_home PASSED                                                    [  7%] 
+tests/integration/test_autenticacao.py::test_registro_usuario_novo PASSED                                             [ 15%]
+tests/integration/test_autenticacao.py::test_login_usuario_inexistente PASSED                                         [ 23%] 
+tests/integration/test_fluxo_completo.py::test_fluxo_completo_usuario PASSED                                          [ 30%]
+tests/integration/test_seguranca_rotas.py::test_acesso_negado_sem_token_acompanhamento PASSED                         [ 38%] 
+tests/integration/test_seguranca_rotas.py::test_acesso_negado_sem_token_relatorios PASSED                             [ 46%]
+tests/integration/test_seguranca_rotas.py::test_post_acompanhamento_sem_token PASSED                                  [ 53%] 
+tests/unit/test_validacao.py::test_criar_usuario_valido PASSED                                                        [ 61%] 
+tests/unit/test_validacao.py::test_usuario_sem_email PASSED                                                           [ 69%] 
+tests/unit/test_validacao.py::test_usuario_sem_senha PASSED                                                           [ 76%] 
+tests/unit/test_validacao.py::test_criar_registro_saude_valido PASSED                                                 [ 84%]
+tests/unit/test_validacao.py::test_registro_saude_sem_campos_obrigatorios PASSED                                      [ 92%] 
+tests/unit/test_validacao.py::test_registro_saude_com_sintoma_opcional PASSED                                         [100%] 
+
+===================================================== warnings summary ===================================================== 
+venv\Lib\site-packages\pydantic\_internal\_config.py:323
+  C:\Users\gsouz\ArquivosVSCode\Sistema Saúde Cardiaca\Sistema-de-Acompanhamento-de-Saude-Cardiaca\ssc\backend-ssc\venv\Lib\site-packages\pydantic\_internal\_config.py:323: PydanticDeprecatedSince20: Support for class-based `config` is deprecated, use ConfigDict instead. Deprecated in Pydantic V2.0 to be removed in V3.0. See Pydantic V2 Migration Guide at https://errors.pydantic.dev/2.11/migration/
+    warnings.warn(DEPRECATION_MESSAGE, DeprecationWarning)
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+============================================== 13 passed, 3 warnings in 0.98s ==============================================
+```
+---
+
 # 🚀 Tecnologias Utilizadas
 
 * Python
