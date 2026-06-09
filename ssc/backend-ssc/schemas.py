@@ -10,8 +10,8 @@ class UserSchema(BaseModel):
     data_nascimento: date
     sexo: str
     pais: str
-    ativo: Optional[bool]
-    admin: Optional[bool]
+    ativo: Optional[bool] = True
+    admin: Optional[bool] = False
 
     class Config:
         from_attributes = True
