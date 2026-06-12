@@ -1,0 +1,94 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/home"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Login</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <div class="login-container">
+    <!-- Header -->
+    <div class="header-content">
+      <ion-icon name="heart" class="heart-logo"></ion-icon>
+      <h1>Bem-vindo de Volta</h1>
+      <p>Faça login para acessar sua conta</p>
+    </div>
+
+    <!-- Form -->
+    <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+      <!-- Email -->
+      <ion-item>
+        <ion-label position="floating">Email</ion-label>
+        <ion-input
+          formControlName="email"
+          type="email"
+          placeholder="seu@email.com"
+        ></ion-input>
+      </ion-item>
+      <ion-text color="danger" *ngIf="submitted && f['email'].errors">
+        <small *ngIf="f['email'].hasError('required')">Email é obrigatório</small>
+        <small *ngIf="f['email'].hasError('email')">Email deve ser válido</small>
+      </ion-text>
+
+      <!-- Senha -->
+      <ion-item>
+        <ion-label position="floating">Senha</ion-label>
+        <ion-input
+          formControlName="senha"
+          [type]="showPassword ? 'text' : 'password'"
+          placeholder="Digite sua senha"
+        ></ion-input>
+        <ion-button slot="end" fill="clear" (click)="togglePasswordVisibility()">
+          <ion-icon name="eye" *ngIf="showPassword"></ion-icon>
+          <ion-icon name="eye-off" *ngIf="!showPassword"></ion-icon>
+        </ion-button>
+      </ion-item>
+      <ion-text color="danger" *ngIf="submitted && f['senha'].errors">
+        <small *ngIf="f['senha'].hasError('required')">Senha é obrigatória</small>
+        <small *ngIf="f['senha'].hasError('minlength')">Senha deve ter pelo menos 8 caracteres</small>
+      </ion-text>
+
+      <!-- Lembrar e Esqueceu Senha -->
+      <div class="remember-forgot">
+        <ion-item lines="none">
+          <ion-checkbox formControlName="lembrar" slot="start"></ion-checkbox>
+          <ion-label>Lembrar-me</ion-label>
+        </ion-item>
+        <ion-button fill="clear" (click)="esqueceuSenha()">
+          Esqueceu a senha?
+        </ion-button>
+      </div>
+
+      <!-- Botão Login -->
+      <ion-button expand="block" type="submit" class="login-btn">
+        Entrar
+      </ion-button>
+
+      <!-- Divider -->
+      <div class="divider">
+        <span>Ou</span>
+      </div>
+
+      <!-- Social Login (Placeholder) -->
+      <ion-button expand="block" fill="outline" class="social-btn">
+        <ion-icon name="logo-google" slot="start"></ion-icon>
+        Entrar com Google
+      </ion-button>
+
+      <!-- Registro Link -->
+      <div class="signup-section">
+        <p>Não possui uma conta? <ion-text color="danger" class="signup-link" (click)="irParaRegistro()">Criar Conta</ion-text></p>
+      </div>
+
+      <!-- Voltar para Home -->
+      <div class="home-link">
+        <ion-button fill="clear" (click)="irParaHome()">
+          <ion-icon name="arrow-back" slot="start"></ion-icon>
+          Voltar para Início
+        </ion-button>
+      </div>
+    </form>
+  </div>
+</ion-content>

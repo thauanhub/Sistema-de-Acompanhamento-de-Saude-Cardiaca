@@ -1,20 +1,67 @@
-<ion-header [translucent]="true">
-  <ion-toolbar>
+<ion-header class="custom-header" [translucent]="true">
+  <ion-toolbar class="custom-toolbar">
     <ion-title>
-      Blank
+      <ion-icon name="heart" class="header-icon"></ion-icon>
+      SSC
     </ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">Blank</ion-title>
-    </ion-toolbar>
-  </ion-header>
+<ion-content [fullscreen]="true" class="custom-content">
+  <div class="hero-section">
+    <!-- Ícone do Coração Animado -->
+    <div class="heart-container">
+      <ion-icon name="heart" class="heart-icon"></ion-icon>
+    </div>
 
-  <div id="container">
-    <strong>Ready to create an app?</strong>
-    <p>Start with Ionic <a target="_blank" rel="noopener noreferrer" href="https://ionicframework.com/docs/components">UI Components</a></p>
+    <!-- Título Principal -->
+    <div class="title-section">
+      <h1 class="main-title">Sistema de Acompanhamento de Saúde Cardíaca</h1>
+      <p class="subtitle">Monitore sua saúde do coração com tecnologia avançada</p>
+    </div>
+
+    <!-- Recursos -->
+    <div class="features-section">
+      <div class="feature-card">
+        <ion-icon name="pulse" class="feature-icon"></ion-icon>
+        <h3>Monitoramento</h3>
+        <p>Acompanhe seus batimentos cardíacos em tempo real</p>
+      </div>
+
+      <div class="feature-card">
+        <ion-icon name="analytics" class="feature-icon"></ion-icon>
+        <h3>Análise</h3>
+        <p>Relatórios detalhados sobre sua saúde</p>
+      </div>
+
+      <div class="feature-card">
+        <ion-icon name="shield-checkmark" class="feature-icon"></ion-icon>
+        <h3>Segurança</h3>
+        <p>Seus dados estão protegidos com criptografia</p>
+      </div>
+    </div>
+
+    <!-- CTA Button -->
+    <div class="cta-section">
+      <p class="cta-text">Comece agora mesmo sua jornada para uma vida mais saudável</p>
+      <ion-button 
+        expand="block" 
+        class="register-btn"
+        (click)="irParaRegistro()"
+      >
+        <ion-icon name="person-add" slot="start"></ion-icon>
+        Criar Conta
+      </ion-button>
+
+      <p class="login-text">
+        Já possui uma conta?
+        <ion-text color="danger" class="login-link" (click)="irParaLogin()">Fazer Login</ion-text>
+      </p>
+    </div>
+
+    <!-- Footer Info -->
+    <div class="footer-section">
+      <p class="footer-text">Cuide da sua saúde cardíaca • Viva melhor</p>
+    </div>
   </div>
 </ion-content>

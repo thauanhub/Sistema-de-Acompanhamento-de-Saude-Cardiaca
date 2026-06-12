@@ -1,6 +1,7 @@
 # para rodar o backend: uvicorn main:app --reload
 
 from fastapi import FastAPI
+from fastapi.middleware.cors import CORSMiddleware
 from passlib.context import CryptContext
 from dotenv import load_dotenv
 from fastapi.security import OAuth2PasswordBearer
@@ -14,6 +15,15 @@ ACCESS_TOKEN_EXPIRE_MINUTES = int(os.getenv("ACCESS_TOKEN_EXPIRE_MINUTES"))
 oauth2_schema = OAuth2PasswordBearer(tokenUrl="auth/login-form")
 
 app = FastAPI()
+
+# Configurar CORS
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],  # Em produção, usar uma lista específica de origens
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 bcrypt_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 

@@ -1,0 +1,194 @@
+.login-container {
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+
+  .header-content {
+    text-align: center;
+    margin-bottom: 40px;
+    padding-top: 20px;
+
+    .heart-logo {
+      font-size: 60px;
+      color: var(--ion-color-danger, #d63031);
+      display: block;
+      margin-bottom: 16px;
+      animation: heartbeat 1.5s ease-in-out infinite;
+    }
+
+    h1 {
+      font-size: 28px;
+      font-weight: 700;
+      margin-bottom: 8px;
+      color: var(--ion-color-primary, #3880ff);
+      background: linear-gradient(90deg, #fff 0%, #d63031 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    p {
+      font-size: 14px;
+      color: var(--ion-color-medium);
+      margin: 0;
+    }
+  }
+
+  form {
+    display: flex;
+    flex-direction: column;
+
+    ion-item {
+      margin-bottom: 12px;
+      --padding-start: 12px;
+      --padding-end: 12px;
+      border-radius: 8px;
+
+      &:focus-within {
+        --background: rgba(214, 48, 49, 0.05);
+      }
+    }
+
+    ion-text {
+      display: block;
+      margin-left: 12px;
+      margin-bottom: 12px;
+
+      small {
+        font-size: 12px;
+      }
+    }
+
+    .remember-forgot {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin: 16px 0;
+
+      ion-item {
+        flex: 1;
+        margin-bottom: 0;
+        --padding-start: 0;
+        --padding-end: 0;
+      }
+
+      ion-button {
+        --padding-start: 0;
+        --padding-end: 0;
+        font-size: 12px;
+      }
+    }
+
+    .login-btn {
+      --border-radius: 8px;
+      margin: 24px 0 16px 0;
+      font-weight: 600;
+      padding: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      --background: #d63031;
+      box-shadow: 0 8px 24px rgba(214, 48, 49, 0.3);
+    }
+
+    .divider {
+      text-align: center;
+      margin: 24px 0;
+      position: relative;
+
+      span {
+        background: var(--ion-background-color);
+        padding: 0 12px;
+        color: var(--ion-color-medium);
+        font-size: 12px;
+        position: relative;
+        z-index: 1;
+      }
+
+      &::before {
+        content: '';
+        position: absolute;
+        top: 50%;
+        left: 0;
+        right: 0;
+        height: 1px;
+        background: var(--ion-color-medium);
+        z-index: 0;
+      }
+    }
+
+    .social-btn {
+      --border-radius: 8px;
+      --border-color: #d63031;
+      --color: #d63031;
+      margin-bottom: 16px;
+    }
+
+    .signup-section {
+      text-align: center;
+      margin-top: 16px;
+
+      p {
+        margin: 0;
+        font-size: 14px;
+        color: var(--ion-color-medium);
+      }
+
+      .signup-link {
+        cursor: pointer;
+        font-weight: 600;
+
+        &:hover {
+          text-decoration: underline;
+        }
+      }
+    }
+
+    .home-link {
+      text-align: center;
+      margin-top: 16px;
+
+      ion-button {
+        --color: #d63031;
+      }
+    }
+  }
+}
+
+@media (max-height: 600px) {
+  .login-container {
+    padding: 12px;
+
+    .header-content {
+      margin-bottom: 24px;
+      padding-top: 10px;
+
+      h1 {
+        font-size: 22px;
+        margin-bottom: 4px;
+      }
+
+      p {
+        font-size: 12px;
+      }
+
+      .heart-logo {
+        font-size: 48px;
+      }
+    }
+  }
+}
+
+@keyframes heartbeat {
+  0%, 100% {
+    transform: scale(1);
+  }
+  25% {
+    transform: scale(1.1);
+  }
+  50% {
+    transform: scale(1.2);
+  }
+  75% {
+    transform: scale(1.1);
+  }
+}

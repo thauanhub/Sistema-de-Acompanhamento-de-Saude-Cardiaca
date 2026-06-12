@@ -1,0 +1,167 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/login"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Criar Conta</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <div class="registro-container">
+    <div class="header-content">
+      <h1>Bem-vindo!</h1>
+      <p>Crie sua conta para começar</p>
+    </div>
+
+    <form [formGroup]="registroForm" (ngSubmit)="onSubmit()">
+      <!-- Nome Completo -->
+      <ion-item>
+        <ion-label position="floating">Nome Completo</ion-label>
+        <ion-input
+          formControlName="nome"
+          type="text"
+          placeholder="Digite seu nome completo"
+        ></ion-input>
+      </ion-item>
+      <ion-text color="danger" *ngIf="submitted && f['nome'].errors">
+        <small *ngIf="f['nome'].hasError('required')">Nome é obrigatório</small>
+        <small *ngIf="f['nome'].hasError('minlength')">Nome deve ter pelo menos 3 caracteres</small>
+      </ion-text>
+
+      <!-- Email -->
+      <ion-item>
+        <ion-label position="floating">Email</ion-label>
+        <ion-input
+          formControlName="email"
+          type="email"
+          placeholder="seu@email.com"
+        ></ion-input>
+      </ion-item>
+      <ion-text color="danger" *ngIf="submitted && f['email'].errors">
+        <small *ngIf="f['email'].hasError('required')">Email é obrigatório</small>
+        <small *ngIf="f['email'].hasError('email')">Email deve ser válido</small>
+      </ion-text>
+
+      <!-- Data de Nascimento -->
+      <ion-item>
+        <ion-label position="floating">Data de Nascimento</ion-label>
+        <ion-input
+          formControlName="dataNascimento"
+          type="date"
+        ></ion-input>
+      </ion-item>
+      <ion-text color="danger" *ngIf="submitted && f['dataNascimento'].errors">
+        <small *ngIf="f['dataNascimento'].hasError('required')">Data de nascimento é obrigatória</small>
+      </ion-text>
+
+      <!-- Gênero -->
+      <ion-item>
+        <ion-label position="floating">Sexo</ion-label>
+        <ion-select formControlName="sexo" placeholder="Selecione seu sexo">
+          <ion-select-option value="M">Masculino</ion-select-option>
+          <ion-select-option value="F">Feminino</ion-select-option>
+          <ion-select-option value="O">Outro</ion-select-option>
+        </ion-select>
+      </ion-item>
+      <ion-text color="danger" *ngIf="submitted && f['sexo'].errors">
+        <small *ngIf="f['sexo'].hasError('required')">Sexo é obrigatório</small>
+      </ion-text>
+
+      <!-- CPF -->
+      <ion-item>
+        <ion-label position="floating">País</ion-label>
+        <ion-input
+          formControlName="pais"
+          type="text"
+          placeholder="Digite seu país"
+        ></ion-input>
+      </ion-item>
+      <ion-text color="danger" *ngIf="submitted && f['pais'].errors">
+        <small *ngIf="f['pais'].hasError('required')">País é obrigatório</small>
+      </ion-text>
+
+      <!-- Telefone -->
+      <ion-item>
+        <ion-label position="floating">Celular</ion-label>
+        <ion-input
+          formControlName="celular"
+          type="tel"
+          placeholder="(00) 00000-0000"
+          (input)="formatarTelefone($event)"
+        ></ion-input>
+      </ion-item>
+      <ion-text color="danger" *ngIf="submitted && f['celular'].errors">
+        <small *ngIf="f['celular'].hasError('required')">Celular é obrigatório</small>
+        <small *ngIf="f['celular'].hasError('pattern')">Celular deve ter o formato: (00) 00000-0000</small>
+      </ion-text>
+
+      <!-- Senha -->
+      <ion-item>
+        <ion-label position="floating">Senha</ion-label>
+        <ion-input
+          formControlName="senha"
+          [type]="showPassword ? 'text' : 'password'"
+          placeholder="Digite uma senha"
+        ></ion-input>
+        <ion-button slot="end" fill="clear" (click)="togglePasswordVisibility()">
+          <ion-icon name="eye" *ngIf="showPassword"></ion-icon>
+          <ion-icon name="eye-off" *ngIf="!showPassword"></ion-icon>
+        </ion-button>
+      </ion-item>
+      <ion-text color="danger" *ngIf="submitted && f['senha'].errors">
+        <small *ngIf="f['senha'].hasError('required')">Senha é obrigatória</small>
+        <small *ngIf="f['senha'].hasError('minlength')">Senha deve ter pelo menos 8 caracteres</small>
+      </ion-text>
+
+      <!-- Confirmar Senha -->
+      <ion-item>
+        <ion-label position="floating">Confirmar Senha</ion-label>
+        <ion-input
+          formControlName="confirmarSenha"
+          [type]="showConfirmPassword ? 'text' : 'password'"
+          placeholder="Confirme sua senha"
+        ></ion-input>
+        <ion-button slot="end" fill="clear" (click)="toggleConfirmPasswordVisibility()">
+          <ion-icon name="eye" *ngIf="showConfirmPassword"></ion-icon>
+          <ion-icon name="eye-off" *ngIf="!showConfirmPassword"></ion-icon>
+        </ion-button>
+      </ion-item>
+      <ion-text color="danger" *ngIf="submitted && f['confirmarSenha'].errors">
+        <small *ngIf="f['confirmarSenha'].hasError('required')">Confirmação de senha é obrigatória</small>
+        <small *ngIf="f['confirmarSenha'].hasError('senhasNaoIguais')">As senhas não correspondem</small>
+      </ion-text>
+
+      <!-- Termos e Condições -->
+      <ion-item lines="none">
+        <ion-checkbox formControlName="termos" slot="start"></ion-checkbox>
+        <ion-label>Concordo com os termos e condições</ion-label>
+      </ion-item>
+      <ion-text color="danger" *ngIf="submitted && f['termos'].errors">
+        <small *ngIf="f['termos'].hasError('required')">Você deve aceitar os termos e condições</small>
+      </ion-text>
+
+      <!-- Botão Enviar -->
+      <ion-button
+        expand="block"
+        type="submit"
+        class="registro-btn"
+      >
+        Criar Conta
+      </ion-button>
+
+      <!-- Link para Login -->
+      <div class="login-link">
+        <p>Já tem uma conta? <ion-text color="primary" (click)="voltarParaLogin()" class="link">Faça login</ion-text></p>
+      </div>
+
+      <!-- Voltar para Home -->
+      <div class="home-link">
+        <ion-button fill="clear" size="small" (click)="irParaHome()">
+          <ion-icon name="arrow-back" slot="start"></ion-icon>
+          Voltar para Início
+        </ion-button>
+      </div>
+    </form>
+  </div>
+</ion-content>

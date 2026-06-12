@@ -1,27 +1,248 @@
-#container {
+// Cores do Sistema
+$cor-primaria: #d63031;      // Vermelho Vibrante
+$cor-secundaria: #1a1a1a;    // Preto Escuro
+$cor-texto: #ffffff;         // Branco
+$cor-texto-secundario: #cccccc;
+
+// Header
+.custom-header {
+  --background: $cor-secundaria;
+
+  .custom-toolbar {
+    --background: $cor-secundaria;
+    --border-color: $cor-primaria;
+    border-bottom: 3px solid $cor-primaria;
+
+    ion-title {
+      color: $cor-primaria;
+      font-weight: 700;
+      font-size: 24px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+
+      .header-icon {
+        font-size: 28px;
+        animation: heartbeat 1.5s ease-in-out infinite;
+      }
+    }
+  }
+}
+
+// Content
+.custom-content {
+  --background: linear-gradient(135deg, $cor-secundaria 0%, #2d2d2d 100%);
+}
+
+// Hero Section
+.hero-section {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-height: 100vh;
+  padding: 20px;
+  color: $cor-texto;
+}
+
+// Coração Animado
+.heart-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 40px;
+  margin-bottom: 20px;
+
+  .heart-icon {
+    font-size: 100px;
+    color: $cor-primaria;
+    animation: heartbeat 1.5s ease-in-out infinite;
+    text-shadow: 0 0 20px rgba(214, 48, 49, 0.5);
+  }
+}
+
+// Título
+.title-section {
   text-align: center;
+  margin-bottom: 40px;
 
-  position: absolute;
-  left: 0;
-  right: 0;
-  top: 50%;
-  transform: translateY(-50%);
+  .main-title {
+    font-size: 32px;
+    font-weight: 800;
+    line-height: 1.3;
+    margin: 0 0 16px 0;
+    color: $cor-texto;
+    text-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+
+    // Destaque em vermelho
+    background: linear-gradient(90deg, $cor-texto 0%, $cor-primaria 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .subtitle {
+    font-size: 16px;
+    color: $cor-texto-secundario;
+    margin: 0;
+    font-weight: 300;
+  }
 }
 
-#container strong {
-  font-size: 20px;
-  line-height: 26px;
+// Features
+.features-section {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 16px;
+  margin: 40px 0;
+
+  .feature-card {
+    background: rgba(214, 48, 49, 0.1);
+    border: 2px solid $cor-primaria;
+    border-radius: 12px;
+    padding: 20px;
+    text-align: center;
+    transition: all 0.3s ease;
+    backdrop-filter: blur(10px);
+
+    &:hover {
+      background: rgba(214, 48, 49, 0.2);
+      transform: translateY(-4px);
+      box-shadow: 0 8px 24px rgba(214, 48, 49, 0.3);
+    }
+
+    .feature-icon {
+      font-size: 48px;
+      color: $cor-primaria;
+      display: block;
+      margin-bottom: 12px;
+    }
+
+    h3 {
+      font-size: 18px;
+      font-weight: 700;
+      margin: 8px 0;
+      color: $cor-texto;
+    }
+
+    p {
+      font-size: 14px;
+      color: $cor-texto-secundario;
+      margin: 0;
+    }
+  }
 }
 
-#container p {
-  font-size: 16px;
-  line-height: 22px;
+// CTA Section
+.cta-section {
+  text-align: center;
+  margin: 40px 0;
 
-  color: #8c8c8c;
+  .cta-text {
+    font-size: 16px;
+    color: $cor-texto;
+    margin-bottom: 24px;
+    font-weight: 500;
+  }
 
-  margin: 0;
+  .register-btn {
+    --background: $cor-primaria;
+    --background-activated: darken($cor-primaria, 10%);
+    --color: $cor-texto;
+    --border-radius: 8px;
+    --padding-top: 16px;
+    --padding-bottom: 16px;
+    --padding-start: 24px;
+    --padding-end: 24px;
+    font-weight: 700;
+    font-size: 16px;
+    letter-spacing: 0.5px;
+    box-shadow: 0 8px 24px rgba(214, 48, 49, 0.4);
+    transition: all 0.3s ease;
+
+    &:hover {
+      box-shadow: 0 12px 32px rgba(214, 48, 49, 0.6);
+      transform: translateY(-2px);
+    }
+
+    &:active {
+      transform: translateY(0);
+    }
+  }
+
+  .login-text {
+    font-size: 14px;
+    color: $cor-texto-secundario;
+    margin-top: 16px;
+
+    .login-link {
+      cursor: pointer;
+      font-weight: 600;
+      transition: all 0.3s ease;
+
+      &:hover {
+        color: $cor-primaria;
+        text-decoration: underline;
+      }
+    }
+  }
 }
 
-#container a {
-  text-decoration: none;
+// Footer
+.footer-section {
+  text-align: center;
+  padding-top: 20px;
+  border-top: 1px solid rgba(214, 48, 49, 0.3);
+
+  .footer-text {
+    font-size: 12px;
+    color: $cor-texto-secundario;
+    margin: 0;
+  }
+}
+
+// Animação do Coração
+@keyframes heartbeat {
+  0%, 100% {
+    transform: scale(1);
+  }
+  25% {
+    transform: scale(1.1);
+  }
+  50% {
+    transform: scale(1.2);
+  }
+  75% {
+    transform: scale(1.1);
+  }
+}
+
+// Responsividade - Tablets
+@media (min-width: 576px) {
+  .features-section {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .title-section .main-title {
+    font-size: 40px;
+  }
+}
+
+// Responsividade - Desktops
+@media (min-width: 992px) {
+  .title-section {
+    margin-bottom: 60px;
+  }
+
+  .heart-container {
+    margin-top: 60px;
+  }
+
+  .title-section .main-title {
+    font-size: 48px;
+  }
+}
+
+// Tema escuro (já está implementado)
+ion-content {
+  --background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
 }
