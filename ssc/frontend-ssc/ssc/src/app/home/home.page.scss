@@ -7,9 +7,15 @@ $cor-texto-secundario: #cccccc;
 // Header
 .custom-header {
   --background: $cor-secundaria;
+  background: $cor-secundaria;
+  background-color: $cor-secundaria;
+  opacity: 1;
 
   .custom-toolbar {
     --background: $cor-secundaria;
+    background: $cor-secundaria;
+    background-color: $cor-secundaria;
+    opacity: 1;
     --border-color: $cor-primaria;
     border-bottom: 3px solid $cor-primaria;
 
@@ -70,21 +76,8 @@ $cor-texto-secundario: #cccccc;
     font-weight: 800;
     line-height: 1.3;
     margin: 0 0 16px 0;
-    color: $cor-texto;
+    color: $cor-primaria;
     text-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
-
-    // Destaque em vermelho
-    background: linear-gradient(90deg, $cor-texto 0%, $cor-primaria 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-  }
-
-  .subtitle {
-    font-size: 16px;
-    color: $cor-texto-secundario;
-    margin: 0;
-    font-weight: 300;
   }
 }
 
@@ -105,9 +98,9 @@ $cor-texto-secundario: #cccccc;
     backdrop-filter: blur(10px);
 
     &:hover {
-      background: rgba(214, 48, 49, 0.2);
+      //background: rgba(214, 48, 49, 0.2);
       transform: translateY(-4px);
-      box-shadow: 0 8px 24px rgba(214, 48, 49, 0.3);
+      //box-shadow: 0 8px 24px rgba(214, 48, 49, 0.3);
     }
 
     .feature-icon {
@@ -156,11 +149,12 @@ $cor-texto-secundario: #cccccc;
     font-weight: 700;
     font-size: 16px;
     letter-spacing: 0.5px;
-    box-shadow: 0 8px 24px rgba(214, 48, 49, 0.4);
+    //box-shadow: 0 8px 24px rgba(214, 48, 49, 0.4);
     transition: all 0.3s ease;
+    border: 2px solid $cor-primaria;
 
     &:hover {
-      box-shadow: 0 12px 32px rgba(214, 48, 49, 0.6);
+      //box-shadow: 0 12px 32px rgba(214, 48, 49, 0.6);
       transform: translateY(-2px);
     }
 
