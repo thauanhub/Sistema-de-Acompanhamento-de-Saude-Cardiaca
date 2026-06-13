@@ -1,5 +1,5 @@
-<ion-header [translucent]="true">
-  <ion-toolbar>
+<ion-header class="custom-header">
+  <ion-toolbar class="custom-toolbar">
     <ion-buttons slot="start">
       <ion-back-button defaultHref="/login"></ion-back-button>
     </ion-buttons>
@@ -7,7 +7,7 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true">
+<ion-content [fullscreen]="true" class="custom-content">
   <div class="registro-container">
     <div class="header-content">
       <h1>Bem-vindo!</h1>
@@ -24,10 +24,12 @@
           placeholder="Digite seu nome completo"
         ></ion-input>
       </ion-item>
-      <ion-text color="danger" *ngIf="submitted && f['nome'].errors">
-        <small *ngIf="f['nome'].hasError('required')">Nome é obrigatório</small>
-        <small *ngIf="f['nome'].hasError('minlength')">Nome deve ter pelo menos 3 caracteres</small>
-      </ion-text>
+      @if (submitted && f['nome'].errors) {
+        <ion-text color="danger">
+          @if (f['nome'].hasError('required')) { <small>Nome é obrigatório</small> }
+          @if (f['nome'].hasError('minlength')) { <small>Nome deve ter pelo menos 3 caracteres</small> }
+        </ion-text>
+      }
 
       <!-- Email -->
       <ion-item>
@@ -38,10 +40,12 @@
           placeholder="seu@email.com"
         ></ion-input>
       </ion-item>
-      <ion-text color="danger" *ngIf="submitted && f['email'].errors">
-        <small *ngIf="f['email'].hasError('required')">Email é obrigatório</small>
-        <small *ngIf="f['email'].hasError('email')">Email deve ser válido</small>
-      </ion-text>
+      @if (submitted && f['email'].errors) {
+        <ion-text color="danger">
+          @if (f['email'].hasError('required')) { <small>Email é obrigatório</small> }
+          @if (f['email'].hasError('email')) { <small>Email deve ser válido</small> }
+        </ion-text>
+      }
 
       <!-- Data de Nascimento -->
       <ion-item>
@@ -51,9 +55,11 @@
           type="date"
         ></ion-input>
       </ion-item>
-      <ion-text color="danger" *ngIf="submitted && f['dataNascimento'].errors">
-        <small *ngIf="f['dataNascimento'].hasError('required')">Data de nascimento é obrigatória</small>
-      </ion-text>
+      @if (submitted && f['dataNascimento'].errors) {
+        <ion-text color="danger">
+          @if (f['dataNascimento'].hasError('required')) { <small>Data de nascimento é obrigatória</small> }
+        </ion-text>
+      }
 
       <!-- Gênero -->
       <ion-item>
@@ -64,9 +70,11 @@
           <ion-select-option value="O">Outro</ion-select-option>
         </ion-select>
       </ion-item>
-      <ion-text color="danger" *ngIf="submitted && f['sexo'].errors">
-        <small *ngIf="f['sexo'].hasError('required')">Sexo é obrigatório</small>
-      </ion-text>
+      @if (submitted && f['sexo'].errors) {
+        <ion-text color="danger">
+          @if (f['sexo'].hasError('required')) { <small>Sexo é obrigatório</small> }
+        </ion-text>
+      }
 
       <!-- CPF -->
       <ion-item>
@@ -77,9 +85,11 @@
           placeholder="Digite seu país"
         ></ion-input>
       </ion-item>
-      <ion-text color="danger" *ngIf="submitted && f['pais'].errors">
-        <small *ngIf="f['pais'].hasError('required')">País é obrigatório</small>
-      </ion-text>
+      @if (submitted && f['pais'].errors) {
+        <ion-text color="danger">
+          @if (f['pais'].hasError('required')) { <small>País é obrigatório</small> }
+        </ion-text>
+      }
 
       <!-- Telefone -->
       <ion-item>
@@ -91,10 +101,12 @@
           (input)="formatarTelefone($event)"
         ></ion-input>
       </ion-item>
-      <ion-text color="danger" *ngIf="submitted && f['celular'].errors">
-        <small *ngIf="f['celular'].hasError('required')">Celular é obrigatório</small>
-        <small *ngIf="f['celular'].hasError('pattern')">Celular deve ter o formato: (00) 00000-0000</small>
-      </ion-text>
+      @if (submitted && f['celular'].errors) {
+        <ion-text color="danger">
+          @if (f['celular'].hasError('required')) { <small>Celular é obrigatório</small> }
+          @if (f['celular'].hasError('pattern')) { <small>Celular deve ter o formato: (00) 00000-0000</small> }
+        </ion-text>
+      }
 
       <!-- Senha -->
       <ion-item>
@@ -105,14 +117,16 @@
           placeholder="Digite uma senha"
         ></ion-input>
         <ion-button slot="end" fill="clear" (click)="togglePasswordVisibility()">
-          <ion-icon name="eye" *ngIf="showPassword"></ion-icon>
-          <ion-icon name="eye-off" *ngIf="!showPassword"></ion-icon>
+          @if (showPassword) { <ion-icon name="eye"></ion-icon> }
+          @if (!showPassword) { <ion-icon name="eye-off"></ion-icon> }
         </ion-button>
       </ion-item>
-      <ion-text color="danger" *ngIf="submitted && f['senha'].errors">
-        <small *ngIf="f['senha'].hasError('required')">Senha é obrigatória</small>
-        <small *ngIf="f['senha'].hasError('minlength')">Senha deve ter pelo menos 8 caracteres</small>
-      </ion-text>
+      @if (submitted && f['senha'].errors) {
+        <ion-text color="danger">
+          @if (f['senha'].hasError('required')) { <small>Senha é obrigatória</small> }
+          @if (f['senha'].hasError('minlength')) { <small>Senha deve ter pelo menos 8 caracteres</small> }
+        </ion-text>
+      }
 
       <!-- Confirmar Senha -->
       <ion-item>
@@ -123,23 +137,27 @@
           placeholder="Confirme sua senha"
         ></ion-input>
         <ion-button slot="end" fill="clear" (click)="toggleConfirmPasswordVisibility()">
-          <ion-icon name="eye" *ngIf="showConfirmPassword"></ion-icon>
-          <ion-icon name="eye-off" *ngIf="!showConfirmPassword"></ion-icon>
+          @if (showConfirmPassword) { <ion-icon name="eye"></ion-icon> }
+          @if (!showConfirmPassword) { <ion-icon name="eye-off"></ion-icon> }
         </ion-button>
       </ion-item>
-      <ion-text color="danger" *ngIf="submitted && f['confirmarSenha'].errors">
-        <small *ngIf="f['confirmarSenha'].hasError('required')">Confirmação de senha é obrigatória</small>
-        <small *ngIf="f['confirmarSenha'].hasError('senhasNaoIguais')">As senhas não correspondem</small>
-      </ion-text>
+      @if (submitted && f['confirmarSenha'].errors) {
+        <ion-text color="danger">
+          @if (f['confirmarSenha'].hasError('required')) { <small>Confirmação de senha é obrigatória</small> }
+          @if (f['confirmarSenha'].hasError('senhasNaoIguais')) { <small>As senhas não correspondem</small> }
+        </ion-text>
+      }
 
       <!-- Termos e Condições -->
       <ion-item lines="none">
         <ion-checkbox formControlName="termos" slot="start"></ion-checkbox>
         <ion-label>Concordo com os termos e condições</ion-label>
       </ion-item>
-      <ion-text color="danger" *ngIf="submitted && f['termos'].errors">
-        <small *ngIf="f['termos'].hasError('required')">Você deve aceitar os termos e condições</small>
-      </ion-text>
+      @if (submitted && f['termos'].errors) {
+        <ion-text color="danger">
+          @if (f['termos'].hasError('required')) { <small>Você deve aceitar os termos e condições</small> }
+        </ion-text>
+      }
 
       <!-- Botão Enviar -->
       <ion-button

@@ -39,13 +39,16 @@
     flex-direction: column;
 
     ion-item {
-      margin-bottom: 12px;
-      --padding-start: 12px;
-      --padding-end: 12px;
-      border-radius: 8px;
+      margin-bottom: 14px;
+      --padding-start: 16px;
+      --padding-end: 16px;
+      --min-height: 68px;
+      --background: rgba(255, 255, 255, 0.05);
+      --border-radius: 12px;
+      border: none;
 
       &:focus-within {
-        --background: rgba(214, 48, 49, 0.05);
+        --background: rgba(214, 48, 49, 0.12);
       }
     }
 
@@ -59,26 +62,6 @@
       }
     }
 
-    .remember-forgot {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin: 16px 0;
-
-      ion-item {
-        flex: 1;
-        margin-bottom: 0;
-        --padding-start: 0;
-        --padding-end: 0;
-      }
-
-      ion-button {
-        --padding-start: 0;
-        --padding-end: 0;
-        font-size: 12px;
-      }
-    }
-
     .login-btn {
       --border-radius: 8px;
       margin: 24px 0 16px 0;
@@ -87,7 +70,7 @@
       text-transform: uppercase;
       letter-spacing: 0.5px;
       --background: #d63031;
-      box-shadow: 0 8px 24px rgba(214, 48, 49, 0.3);
+      box-shadow: none;
     }
 
     .divider {
@@ -114,13 +97,6 @@
         background: var(--ion-color-medium);
         z-index: 0;
       }
-    }
-
-    .social-btn {
-      --border-radius: 8px;
-      --border-color: #d63031;
-      --color: #d63031;
-      margin-bottom: 16px;
     }
 
     .signup-section {

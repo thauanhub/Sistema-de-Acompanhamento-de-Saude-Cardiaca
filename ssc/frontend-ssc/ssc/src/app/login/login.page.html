@@ -27,10 +27,12 @@
           placeholder="seu@email.com"
         ></ion-input>
       </ion-item>
-      <ion-text color="danger" *ngIf="submitted && f['email'].errors">
-        <small *ngIf="f['email'].hasError('required')">Email é obrigatório</small>
-        <small *ngIf="f['email'].hasError('email')">Email deve ser válido</small>
-      </ion-text>
+      @if (submitted && f['email'].errors) {
+        <ion-text color="danger">
+          @if (f['email'].hasError('required')) { <small>Email é obrigatório</small> }
+          @if (f['email'].hasError('email')) { <small>Email deve ser válido</small> }
+        </ion-text>
+      }
 
       <!-- Senha -->
       <ion-item>
@@ -41,40 +43,20 @@
           placeholder="Digite sua senha"
         ></ion-input>
         <ion-button slot="end" fill="clear" (click)="togglePasswordVisibility()">
-          <ion-icon name="eye" *ngIf="showPassword"></ion-icon>
-          <ion-icon name="eye-off" *ngIf="!showPassword"></ion-icon>
+          @if (showPassword) { <ion-icon name="eye"></ion-icon> }
+          @if (!showPassword) { <ion-icon name="eye-off"></ion-icon> }
         </ion-button>
       </ion-item>
-      <ion-text color="danger" *ngIf="submitted && f['senha'].errors">
-        <small *ngIf="f['senha'].hasError('required')">Senha é obrigatória</small>
-        <small *ngIf="f['senha'].hasError('minlength')">Senha deve ter pelo menos 8 caracteres</small>
-      </ion-text>
-
-      <!-- Lembrar e Esqueceu Senha -->
-      <div class="remember-forgot">
-        <ion-item lines="none">
-          <ion-checkbox formControlName="lembrar" slot="start"></ion-checkbox>
-          <ion-label>Lembrar-me</ion-label>
-        </ion-item>
-        <ion-button fill="clear" (click)="esqueceuSenha()">
-          Esqueceu a senha?
-        </ion-button>
-      </div>
+      @if (submitted && f['senha'].errors) {
+        <ion-text color="danger">
+          @if (f['senha'].hasError('required')) { <small>Senha é obrigatória</small> }
+          @if (f['senha'].hasError('minlength')) { <small>Senha deve ter pelo menos 8 caracteres</small> }
+        </ion-text>
+      }
 
       <!-- Botão Login -->
       <ion-button expand="block" type="submit" class="login-btn">
         Entrar
-      </ion-button>
-
-      <!-- Divider -->
-      <div class="divider">
-        <span>Ou</span>
-      </div>
-
-      <!-- Social Login (Placeholder) -->
-      <ion-button expand="block" fill="outline" class="social-btn">
-        <ion-icon name="logo-google" slot="start"></ion-icon>
-        Entrar com Google
       </ion-button>
 
       <!-- Registro Link -->
