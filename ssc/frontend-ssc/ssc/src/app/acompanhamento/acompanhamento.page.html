@@ -1,0 +1,75 @@
+<ion-header class="custom-header">
+  <ion-toolbar class="custom-toolbar">
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/home"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Meu Acompanhamento</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="custom-content">
+  <div class="acompanhamento-container">
+    
+    <div class="card-formulario">
+      <div class="header-content">
+        <ion-icon name="pulse" class="heart-logo"></ion-icon>
+        <h2>Novo Registro</h2>
+        <p>Insira os seus dados de saúde de hoje</p>
+      </div>
+
+      <form [formGroup]="saudeForm" (ngSubmit)="onSubmit()">
+        
+        <ion-item>
+          <ion-label position="floating">Pressão Arterial (ex: 120/80)</ion-label>
+          <ion-input formControlName="pressao_arterial" type="text"></ion-input>
+        </ion-item>
+
+        <ion-item>
+          <ion-label position="floating">Frequência Cardíaca (BPM)</ion-label>
+          <ion-input formControlName="frequencia_cardiaca" type="number"></ion-input>
+        </ion-item>
+
+        <ion-item>
+          <ion-label position="floating">Oxigenação (%)</ion-label>
+          <ion-input formControlName="nivel_oxigenacao" type="number"></ion-input>
+        </ion-item>
+
+        <ion-item>
+          <ion-label position="floating">Peso (kg)</ion-label>
+          <ion-input formControlName="peso" type="number"></ion-input>
+        </ion-item>
+
+        <ion-item>
+          <ion-label position="floating">Data da Medição</ion-label>
+          <ion-input formControlName="data" type="date"></ion-input>
+        </ion-item>
+
+        <ion-item>
+          <ion-label position="floating">Sintomas (Opcional)</ion-label>
+          <ion-textarea formControlName="sintomas" rows="2"></ion-textarea>
+        </ion-item>
+
+        <ion-button expand="block" type="submit" class="salvar-btn">
+          Salvar Dados
+        </ion-button>
+      </form>
+    </div>
+
+    <div class="historico-section" *ngIf="historico.length > 0">
+      <h3 class="historico-titulo">Meu Histórico</h3>
+      
+      <ion-card *ngFor="let item of historico" class="historico-card">
+        <ion-card-header>
+          <ion-card-subtitle>{{ item.data | date:'dd/MM/yyyy' }}</ion-card-subtitle>
+          <ion-card-title>Pressão: {{ item.pressao_arterial }}</ion-card-title>
+        </ion-card-header>
+        <ion-card-content>
+          <p><strong>BPM:</strong> {{ item.frequencia_cardiaca }} | <strong>O2:</strong> {{ item.nivel_oxigenacao }}%</p>
+          <p><strong>Peso:</strong> {{ item.peso }} kg</p>
+          <p *ngIf="item.sintomas"><strong>Sintomas:</strong> {{ item.sintomas }}</p>
+        </ion-card-content>
+      </ion-card>
+    </div>
+
+  </div>
+</ion-content>

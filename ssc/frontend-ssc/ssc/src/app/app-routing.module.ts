@@ -18,7 +18,11 @@ const routes: Routes = [
     path: '',
     redirectTo: 'home',
     pathMatch: 'full'
+  },  {
+    path: 'acompanhamento',
+    loadChildren: () => import('./acompanhamento/acompanhamento.module').then( m => m.AcompanhamentoPageModule)
   },
+
 ];
 
 @NgModule({
