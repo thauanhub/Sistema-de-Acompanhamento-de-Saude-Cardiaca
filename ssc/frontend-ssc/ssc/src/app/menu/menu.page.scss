@@ -1,0 +1,219 @@
+// Cores do Sistema
+$cor-primaria: #d63031;      // Vermelho Vibrante
+$cor-secundaria: #1a1a1a;    // Preto Escuro
+$cor-texto: #ffffff;         // Branco
+$cor-texto-secundario: #cccccc;
+
+// Content Background
+ion-content.custom-content {
+  --background: linear-gradient(135deg, $cor-secundaria 0%, #2d2d2d 100%);
+  --padding-start: 0;
+  --padding-end: 0;
+}
+
+// Header Customization
+.custom-header {
+  --background: $cor-secundaria;
+  background: $cor-secundaria;
+  background-color: $cor-secundaria;
+  opacity: 1;
+
+  .custom-toolbar {
+    --background: $cor-secundaria;
+    background: $cor-secundaria;
+    background-color: $cor-secundaria;
+    opacity: 1;
+    --border-color: $cor-primaria;
+    border-bottom: 3px solid $cor-primaria;
+
+    ion-title {
+      color: $cor-primaria;
+      font-weight: 700;
+      font-size: 24px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+
+      .header-icon {
+        font-size: 28px;
+        animation: heartbeat 1.5s ease-in-out infinite;
+      }
+    }
+  }
+}
+
+.usuario-section {
+  display: flex;
+  align-items: center;
+  padding: 2rem 1.5rem 1.5rem;
+  background: rgba(214, 48, 49, 0.1);
+  border-bottom: 2px solid $cor-primaria;
+  color: $cor-texto;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+
+  .avatar {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 3rem;
+    background: rgba(214, 48, 49, 0.2);
+    color: $cor-primaria;
+    border-radius: 50%;
+    width: 70px;
+    height: 70px;
+    flex-shrink: 0;
+    border: 2px solid $cor-primaria;
+  }
+
+  .usuario-info {
+    flex: 1;
+
+    .boas-vindas {
+      margin: 0;
+      font-size: 0.95rem;
+      color: $cor-texto-secundario;
+    }
+
+    .email {
+      margin: 0.25rem 0 0;
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: $cor-texto;
+    }
+  }
+}
+
+.menu-container {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1rem;
+  padding: 0 1rem;
+  margin-bottom: 2rem;
+
+  @media (min-width: 600px) {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .menu-card {
+    position: relative;
+    cursor: pointer;
+    border-radius: 12px;
+    overflow: hidden;
+    background: rgba(214, 48, 49, 0.1);
+    border: 2px solid $cor-primaria;
+    backdrop-filter: blur(10px);
+    transition: all 0.3s ease;
+    margin: 0;
+    box-shadow: none;
+
+    ion-card-header {
+      padding-bottom: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100px;
+      background: rgba(214, 48, 49, 0.15);
+      border-bottom: 1px solid rgba(214, 48, 49, 0.2);
+
+      .card-icon {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 3rem;
+        color: $cor-primaria;
+      }
+    }
+
+    // Add animation to specific icon based on name
+    ion-card-header ion-icon[name="heart"] {
+      animation: heartbeat 1.5s ease-in-out infinite;
+    }
+
+    ion-card-content {
+      padding: 1.5rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+
+      ion-card-title {
+        font-size: 1.25rem;
+        font-weight: 700;
+        color: $cor-texto;
+        margin-bottom: 0.25rem;
+        text-align: center;
+      }
+
+      p {
+        font-size: 0.95rem;
+        color: $cor-texto-secundario;
+        margin: 0;
+        text-align: center;
+      }
+
+      .card-action {
+        display: flex;
+        align-items: center;
+        justify-content: flex-end;
+        font-size: 1.5rem;
+        color: $cor-primaria;
+        margin-top: 0.5rem;
+        ion-icon {
+          transition: transform 0.3s ease;
+        }
+      }
+    }
+
+    &:active,
+    &:hover {
+      transform: translateY(-4px);
+      background: rgba(214, 48, 49, 0.2);
+
+      .card-action ion-icon {
+        transform: translateX(4px);
+      }
+    }
+  }
+}
+
+.logout-section {
+  padding: 0 1rem 2rem;
+  margin-top: 2rem;
+
+  ion-button {
+    --background: transparent;
+    --background-activated: rgba(214, 48, 49, 0.2);
+    --background-hover: rgba(214, 48, 49, 0.1);
+    --border-width: 2px;
+    --border-color: $cor-primaria;
+    --color: $cor-primaria;
+    font-weight: 700;
+    --border-radius: 8px;
+    --padding-top: 16px;
+    --padding-bottom: 16px;
+    transition: all 0.3s ease;
+
+    &:hover {
+      transform: translateY(-2px);
+    }
+    
+    &:active {
+      transform: translateY(0);
+    }
+  }
+}
+
+@keyframes heartbeat {
+  0%, 100% {
+    transform: scale(1);
+  }
+  25% {
+    transform: scale(1.1);
+  }
+  50% {
+    transform: scale(1.2);
+  }
+  75% {
+    transform: scale(1.1);
+  }
+}

@@ -1,0 +1,69 @@
+<ion-header class="custom-header">
+  <ion-toolbar class="custom-toolbar">
+    <ion-title>
+      <ion-icon name="heart" class="header-icon"></ion-icon>
+      Menu Principal
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true" class="custom-content">
+
+  <!-- Seção de boas-vindas do usuário -->
+  <div class="usuario-section">
+    <div class="avatar">
+      <ion-icon name="person-circle"></ion-icon>
+    </div>
+    <div class="usuario-info">
+      <p class="boas-vindas">Bem-vindo!</p>
+      <p class="email">{{ usuario?.email }}</p>
+    </div>
+  </div>
+
+  <!-- Cartões de navegação -->
+  <div class="menu-container">
+    <!-- Cartão Acompanhamento -->
+    <ion-card class="menu-card" (click)="irParaAcompanhamento()">
+      <ion-card-header>
+        <div class="card-icon">
+          <ion-icon name="heart"></ion-icon>
+        </div>
+      </ion-card-header>
+      <ion-card-content>
+        <ion-card-title>Acompanhamento</ion-card-title>
+        <p>Registre seus dados de saúde cardíaca</p>
+        <div class="card-action">
+          <ion-icon name="arrow-forward"></ion-icon>
+        </div>
+      </ion-card-content>
+    </ion-card>
+
+    <!-- Cartão Relatórios -->
+    <ion-card class="menu-card" (click)="irParaRelatorios()">
+      <ion-card-header>
+        <div class="card-icon">
+          <ion-icon name="bar-chart"></ion-icon>
+        </div>
+      </ion-card-header>
+      <ion-card-content>
+        <ion-card-title>Relatórios</ion-card-title>
+        <p>Visualize seus relatórios e estatísticas</p>
+        <div class="card-action">
+          <ion-icon name="arrow-forward"></ion-icon>
+        </div>
+      </ion-card-content>
+    </ion-card>
+  </div>
+
+  <!-- Botão Logout -->
+  <div class="logout-section">
+    <ion-button 
+      expand="block" 
+      class="logout-btn"
+      (click)="logout()"
+    >
+      <ion-icon slot="start" name="log-out"></ion-icon>
+      Logout
+    </ion-button>
+  </div>
+</ion-content>

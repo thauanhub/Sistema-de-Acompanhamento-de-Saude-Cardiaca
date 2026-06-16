@@ -81,9 +81,9 @@ export class LoginPage implements OnInit {
             this.authService.salvarSessao(response.access_token, usuario);
             this.presentAlert('Sucesso', 'Login realizado com sucesso!');
             
-            // Redirecionar para home após 1 segundo
+            // Redirecionar para menu após 1 segundo
             setTimeout(() => {
-              this.router.navigate(['/home']);
+              this.router.navigate(['/menu']);
             }, 1000);
           }
         },

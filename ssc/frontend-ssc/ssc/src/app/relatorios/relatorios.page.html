@@ -1,0 +1,137 @@
+<ion-header class="custom-header">
+  <ion-toolbar class="custom-toolbar">
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/home"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Relatorios</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="carregarRelatorios()" [disabled]="carregando">
+        <ion-icon name="refresh" slot="icon-only"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="custom-content">
+  <div class="relatorios-container">
+    <section class="titulo-section">
+      <ion-icon name="analytics" class="titulo-icon"></ion-icon>
+      <div>
+        <h1>Relatorio de Saude Cardiaca</h1>
+        <p>Acompanhe medias, ultimo registro e evolucao dos seus indicadores.</p>
+      </div>
+    </section>
+
+    <section class="indicadores-grid" *ngIf="indicadores.length > 0">
+      <ion-card class="indicador-card" *ngFor="let indicador of indicadores">
+        <ion-card-content>
+          <div class="indicador-topo">
+            <ion-icon [name]="indicador.icone"></ion-icon>
+            <span>{{ indicador.titulo }}</span>
+          </div>
+          <strong>{{ indicador.valor }}</strong>
+          <small>{{ indicador.detalhe }}</small>
+        </ion-card-content>
+      </ion-card>
+    </section>
+
+    <section class="ultimo-card">
+      <div class="section-header">
+        <h2>Ultimo registro</h2>
+        <ion-chip color="danger" *ngIf="temUltimoRegistro()">
+          {{ formatarData(ultimoRegistro?.data) }}
+        </ion-chip>
+      </div>
+
+      <div class="sem-dados" *ngIf="!temUltimoRegistro()">
+        <ion-icon name="document-text"></ion-icon>
+        <p>{{ ultimoRegistro?.mensagem || 'Nenhum registro encontrado.' }}</p>
+      </div>
+
+      <div class="ultimo-grid" *ngIf="temUltimoRegistro()">
+        <div>
+          <span>Pressao arterial</span>
+          <strong>{{ ultimoRegistro?.pressao_arterial }}</strong>
+        </div>
+        <div>
+          <span>Frequencia</span>
+          <strong>{{ ultimoRegistro?.frequencia_cardiaca }} BPM</strong>
+        </div>
+        <div>
+          <span>Oxigenacao</span>
+          <strong>{{ ultimoRegistro?.nivel_oxigenacao }}%</strong>
+        </div>
+        <div>
+          <span>Peso</span>
+          <strong>{{ ultimoRegistro?.peso }} kg</strong>
+        </div>
+      </div>
+
+      <p class="sintomas" *ngIf="temUltimoRegistro() && ultimoRegistro?.sintomas">
+        <strong>Sintomas:</strong> {{ ultimoRegistro?.sintomas }}
+      </p>
+    </section>
+
+    <section class="graficos-section">
+      <div class="section-header">
+        <h2>Evolucao dos indicadores</h2>
+        <span>ultimos 7 registros</span>
+      </div>
+
+      <div class="sem-dados" *ngIf="historico.length === 0">
+        <ion-icon name="bar-chart"></ion-icon>
+        <p>Cadastre registros em Acompanhamento para visualizar os graficos.</p>
+      </div>
+
+      <div class="graficos-grid" *ngIf="historico.length > 0">
+        <article class="grafico-card">
+          <div class="grafico-titulo">
+            <ion-icon name="heart"></ion-icon>
+            <h3>Frequencia cardiaca</h3>
+          </div>
+          <div class="grafico-barras">
+            <div class="barra-item" *ngFor="let barra of barrasFrequencia">
+              <span>{{ barra.valor }}</span>
+              <div class="barra-trilho">
+                <div class="barra-preenchida frequencia" [style.height.%]="barra.altura"></div>
+              </div>
+              <small>{{ barra.label }}</small>
+            </div>
+          </div>
+        </article>
+
+        <article class="grafico-card">
+          <div class="grafico-titulo">
+            <ion-icon name="water"></ion-icon>
+            <h3>Oxigenacao</h3>
+          </div>
+          <div class="grafico-barras">
+            <div class="barra-item" *ngFor="let barra of barrasOxigenacao">
+              <span>{{ barra.valor }}%</span>
+              <div class="barra-trilho">
+                <div class="barra-preenchida oxigenacao" [style.height.%]="barra.altura"></div>
+              </div>
+              <small>{{ barra.label }}</small>
+            </div>
+          </div>
+        </article>
+
+        <article class="grafico-card">
+          <div class="grafico-titulo">
+            <ion-icon name="scale"></ion-icon>
+            <h3>Peso corporal</h3>
+          </div>
+          <div class="grafico-barras">
+            <div class="barra-item" *ngFor="let barra of barrasPeso">
+              <span>{{ barra.valor }}</span>
+              <div class="barra-trilho">
+                <div class="barra-preenchida peso" [style.height.%]="barra.altura"></div>
+              </div>
+              <small>{{ barra.label }}</small>
+            </div>
+          </div>
+        </article>
+      </div>
+    </section>
+  </div>
+</ion-content>
