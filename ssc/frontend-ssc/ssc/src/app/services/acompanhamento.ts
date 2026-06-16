@@ -16,8 +16,9 @@ export interface RegistroSaude {
   providedIn: 'root'
 })
 export class AcompanhamentoService {
-  // O endereço exato da rota que você criou na FastAPI
-  private apiUrl = 'http://localhost:8000/acompanhamento';
+  //private apiUrl = 'http://localhost:8000/acompanhamento/';
+  private apiUrl = 'http://192.168.0.8:8000/acompanhamento/';
+  //private apiUrl = 'https://1bbdb1a1b1802e.lhr.life/acompanhamento/';
 
   constructor(private http: HttpClient) { }
 

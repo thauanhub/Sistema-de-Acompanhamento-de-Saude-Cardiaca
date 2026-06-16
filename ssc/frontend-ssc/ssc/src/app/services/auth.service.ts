@@ -30,7 +30,9 @@ export interface AuthResponse {
   providedIn: 'root'
 })
 export class AuthService {
-  private apiUrl = 'http://localhost:8000/auth'; // URL do backend
+  //private apiUrl = 'http://localhost:8000/auth'; // URL do backend
+  private apiUrl = 'http://192.168.0.8:8000/auth';
+  //private apiUrl = 'https://1bbdb1a1b1802e.lhr.life/auth';
   private usuarioAtual = new BehaviorSubject<any>(null);
   public usuarioAtual$ = this.usuarioAtual.asObservable();
 

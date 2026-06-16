@@ -24,9 +24,11 @@ export interface UltimoRegistroRelatorio {
   providedIn: 'root'
 })
 export class RelatoriosService {
-  private apiUrl = 'http://localhost:8000';
+  //private apiUrl = 'http://localhost:8000';
+  private apiUrl = 'http://192.168.0.8:8000';
+  //private apiUrl = 'https://1bbdb1a1b1802e.lhr.life';
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) { }
 
   buscarResumo(): Observable<ResumoRelatorio> {
     return this.http.get<ResumoRelatorio>(`${this.apiUrl}/relatorios/resumo`);
